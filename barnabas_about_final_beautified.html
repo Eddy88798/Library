@@ -1,0 +1,440 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Barnabas Books Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&amp;family=Poppins:wght@400;600&amp;family=Libre+Baskerville:ital@0;1&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #2e1a09;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(90deg, #5c3811, #3e250a);
+      color: #fff;
+      padding: 12px 20px;
+      font-size: 26px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-text {
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      font-size: 28px;
+      background: #ff9800;
+      color: #fff;
+      border-radius: 50%;
+      padding: 5px 10px;
+    }
+
+    .install-btn {
+      background: #ff9800;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { background-color: #ff9800; }
+      50% { background-color: #ff0000; }
+    }
+
+    .slideshow-container {
+      max-width: 1100px;
+      margin: 20px auto;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      border: 5px solid #5c3811;
+    }
+
+    .slideshow-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .about {
+      max-width: 960px;
+      margin: 40px auto;
+      background: linear-gradient(145deg, #f7f1e1, #fce6cc);
+      border-radius: 18px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.35);
+      padding: 50px 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about h2 {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 34px;
+      color: #4a2c0a;
+      margin-bottom: 25px;
+    }
+
+    .typewriter-text {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 20px;
+      font-style: italic;
+      font-weight: 400;
+      color: #3a2c1a;
+      min-height: 60px;
+      white-space: nowrap;
+      border-right: 3px solid #e65100;
+      overflow: hidden;
+      display: inline-block;
+      animation: blink-caret 0.75s step-end infinite;
+    }
+
+    @keyframes blink-caret {
+      50% { border-color: transparent; }
+    }
+
+    .search-bar {
+      text-align: center;
+      padding: 20px 10px;
+    }
+
+    .search-bar input {
+      width: 90%;
+      max-width: 500px;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    .book-section {
+      max-width: 1100px;
+      margin: 30px auto;
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      padding: 20px;
+      background: #fff3e0;
+      border-radius: 16px;
+    }
+
+    .book-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .book-card img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .ribbon {
+      position: absolute;
+      top: 10px;
+      left: -20px;
+      background: #e91e63;
+      color: white;
+      padding: 5px 40px;
+      transform: rotate(-45deg);
+      font-size: 12px;
+      font-weight: bold;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    }
+
+    .book-info {
+      padding: 15px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .book-info h3 {
+      margin: 5px 0;
+      font-family: 'Playfair Display', serif;
+      color: #5c3811;
+    }
+
+    .book-rating {
+      color: #ffb400;
+      font-size: 14px;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #000;
+      margin: 10px 0;
+    }
+
+    .read-btn, .borrow-btn, .buy-btn {
+      background: #ff9800;
+      border: none;
+      color: white;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 8px;
+      width: 100%;
+    }
+
+    .read-btn:hover, .borrow-btn:hover, .buy-btn:hover {
+      background: #e68900;
+    }
+
+    footer {
+      background: #1e1207;
+      color: #aaa;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 14px;
+    }
+
+    .donate-btn {
+      background: #ff9800;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .donate-btn:hover {
+      background: #e68900;
+    }
+  
+
+/* --- New About Section Styles --- */
+.about-section {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.about-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  padding: 30px 40px;
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+}
+
+.about-card h2 {
+  font-size: 28px;
+  color: #4a2c0a;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 15px;
+}
+
+.about-card .tagline {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 18px;
+  font-style: italic;
+  color: #3a2c1a;
+  min-height: 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  border-right: 2px solid #e65100;
+  animation: blink-caret 0.75s step-end infinite;
+}
+
+@keyframes blink-caret {
+  50% { border-color: transparent; }
+}
+
+/* --- Books Section Updated Layout --- */
+.book-section {
+  max-width: 1000px;
+  margin: 40px auto;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  padding: 20px;
+  background: #fff8ed;
+  border-radius: 16px;
+}
+
+/* Add zoom on hover for cards */
+.book-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.book-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+</style>
+</head>
+<body>
+<header>
+<div class="logo-text">
+<span class="logo-icon">📖</span> Barnabas Digital Library
+    </div>
+<button class="install-btn" id="installBtn">📲 Install App</button>
+</header>
+<div class="search-bar">
+<input oninput="alert('Search feature coming soon!')" placeholder="Search books..." type="text"/>
+</div>
+<div class="slideshow-container">
+<img alt="Banner" src="https://pub-954ee37e70244de5bb62c446533dbea3.r2.dev/file_00000000e66461fdadbbef14305c48bc%20(1).png"/>
+</div>
+
+<div class="about-section">
+<div class="about-card">
+<h2><span class="emoji">📚</span> Welcome to Barnabas Library</h2>
+<p class="tagline" id="typewriter"></p>
+</div>
+</div>
+
+<style>
+  .about {
+    max-width: 800px;
+    margin: 40px auto;
+    background: linear-gradient(145deg, #f7f1e1, #fce6cc);
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    padding: 30px 24px;
+    text-align: center;
+    animation: fadeInUp 1s ease both;
+  }
+
+  .about h2 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 28px;
+    color: #4a2c0a;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .typewriter-text {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: #3a2c1a;
+    border-right: 2px solid #e65100;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    animation: blink-caret 0.75s step-end infinite;
+    min-height: 40px;
+  }
+
+  @keyframes blink-caret {
+    50% {
+      border-color: transparent;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<div class="book-section">
+<div class="book-card">
+<div class="ribbon">Top Rated</div>
+<img alt="Book 1" src="https://pub-954ee37e70244de5bb62c446533dbea3.r2.dev/file_00000000d41c6230b1e3ff5aacfbe6a3.png"/>
+<div class="book-info">
+<h3>The Power of Enthusiasm</h3>
+<div class="book-rating">⭐⭐⭐⭐⭐</div>
+<div class="price">Borrow: $1 | Buy: $5</div>
+<button class="read-btn">📖 Read Now</button>
+<button class="borrow-btn">📚 Borrow</button>
+<button class="buy-btn">💰 Buy</button>
+</div>
+</div>
+<div class="book-card">
+<div class="ribbon">Top Rated</div>
+<img alt="Book 2" src="https://pub-954ee37e70244de5bb62c446533dbea3.r2.dev/book_mockup_download.png"/>
+<div class="book-info">
+<h3>The Power of the Lord's Prayer</h3>
+<div class="book-rating">⭐⭐⭐⭐⭐</div>
+<div class="price">Borrow: $1 | Buy: $7</div>
+<button class="read-btn">📖 Read Now</button>
+<button class="borrow-btn">📚 Borrow</button>
+<button class="buy-btn">💰 Buy</button>
+</div>
+</div>
+</div>
+<footer>
+<p>© 2025 Barnabas Digital Library. All rights reserved.</p>
+<p>Bringing the best of the best reading experience to you. If you love what I'm doing, consider buying me a coffee ☕</p>
+<button class="donate-btn" onclick="alert('Donation feature coming soon. Thank you!')">💖 Donate / Buy me coffee</button>
+</footer>
+<audio id="keySound" preload="auto" src="https://cdn.pixabay.com/download/audio/2023/05/23/audio_c8cf14ff89.mp3?filename=typing-2-109436.mp3"></audio>
+<script>
+    const text = "Your premium in-app reading experience: no downloads, no copy & paste, no screenshots — only secure, beautiful reading.";
+    const typewriter = document.getElementById("typewriter");
+    const keySound = document.getElementById("keySound");
+    let index = 0;
+
+    function typeEffect() {
+      if (index < text.length) {
+        typewriter.textContent += text.charAt(index);
+        if (text.charAt(index) !== " ") {
+          keySound.currentTime = 0;
+          keySound.play();
+        }
+        index++;
+        setTimeout(typeEffect, 70);
+      } else {
+        setTimeout(() => {
+          typewriter.textContent = "";
+          index = 0;
+          typeEffect();
+        }, 3000);
+      }
+    }
+
+    window.onload = () => {
+      typeEffect();
+    };
+  </script>
+</body>
+</html>

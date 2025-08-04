@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Golden Scrolls of Barnabas</title>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Playfair+Display:ital,wght@1,700&family=Inter:wght@400;600&family=Pacifico&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(120deg, #1a0900 0%, #221104 80%, #0a0603 100%);
+      color: #333;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .bg-shape {
+      position: absolute;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.14;
+      filter: blur(2px);
+    }
+    .bg-shape1 {
+      top: -60px; left: -140px; width: 440px;
+      transform: rotate(8deg);
+    }
+    .bg-shape2 {
+      bottom: -80px; right: -110px; width: 420px;
+      transform: rotate(-12deg);
+    }
+    ::-webkit-scrollbar {
+      width: 12px;
+      background: #ffe0b2;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(90deg, #ffcf6b 20%, #ffb300 80%);
+      border-radius: 10px;
+    }
+    header {
+      background: #1a0b02e0;
+      padding: 2.2rem 1.5rem 1.4rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      box-shadow: 0 5px 25px #0009;
+      backdrop-filter: blur(4px);
+    }
+    .logo-orange-3d {
+      text-align: center;
+      font-family: 'UnifrakturCook', 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      background: linear-gradient(90deg, #ffecb3 0%, #ff9800 40%, #ff6f00 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+      user-select: none;
+      padding: 0.09em 0.18em;
+      position: relative;
+      line-height: 1.12;
+      word-break: break-word;
+      hyphens: auto;
+      filter: drop-shadow(2px 4px 10px #3e272355);
+      text-shadow:
+        0 2px 8px #fffbe680,
+        0 1.5px 0 #fffde7,
+        2px 3px 0 #ff9800dd,
+        0 8px 24px #8d6e630a;
+      border-radius: 16px;
+      box-shadow:
+        0 1px 10px #ffe08233,
+        0 6px 32px #ffd70011,
+        0 9px 50px #ffb3000c;
+      transition: text-shadow 0.3s, filter 0.3s, font-size 0.3s;
+      max-width: 98vw;
+      margin: 0 auto;
+      white-space: normal;
+    }
+    @media (max-width: 900px) {
+      .logo-orange-3d {
+        font-size: clamp(1.7rem, 7vw, 2.6rem);
+        padding: 0.09em 0.13em;
+      }
+      header { padding: 1.4rem 0.7rem 1.1rem 0.7rem; }
+    }
+    @media (max-width: 600px) {
+      .logo-orange-3d {
+        font-size: clamp(1.4rem, 8vw, 2.1rem);
+        line-height: 1.13;
+        letter-spacing: 0.01em;
+        padding: 0.07em 0.06em;
+        text-shadow:
+          0 1px 2px #fffbe650,
+          0 2px 5px #ffea0060,
+          0 1px 0 #fffde7,
+          1px 1.5px 0 #ff9800bb;
+        box-shadow:
+          0 1px 4px #ffe08244,
+          0 3px 12px #ffd70022;
+      }
+    }
+    @media (max-width: 400px) {
+      .logo-orange-3d {
+        font-size: 1.2rem;
+        line-height: 1.13;
+        padding: 0.02em 0.01em;
+      }
+    }
+    .download-app-container {
+      text-align: center;
+      margin: 1.2rem 0 0.5rem 0;
+      z-index: 30;
+      position: relative;
+    }
+    .download-app-btn {
+      background: linear-gradient(90deg, #ffb300, #ffe082 70%);
+      color: #3e2723;
+      border: none;
+      border-radius: 999px;
+      padding: 1rem 2.1rem;
+      font-size: 1.18rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 3px 18px #ffb30066;
+      transition: background 0.22s, color 0.22s, transform 0.22s;
+      outline: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7em;
+      animation: pulse-btn 1.4s infinite;
+    }
+    @keyframes pulse-btn {
+      0% {
+        box-shadow: 0 0 0 0 #ffb30044, 0 3px 18px #ffb30066;
+        transform: scale(1);
+      }
+      60% {
+        box-shadow: 0 0 0 18px #ffb30011, 0 3px 24px #ffb30088;
+        transform: scale(1.04);
+      }
+      100% {
+        box-shadow: 0 0 0 0 #ffb30044, 0 3px 18px #ffb30066;
+        transform: scale(1);
+      }
+    }
+    .download-app-btn:hover, .download-app-btn:focus {
+      background: linear-gradient(90deg, #ffe082, #ffb300 70%);
+      color: #d84315;
+      transform: scale(1.07);
+    }
+    .about-section {
+      padding: 2rem 2rem 3.6rem 2rem;
+      background: #291206;
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+    }
+    @media (max-width: 768px) {
+      .about-section {
+        padding-top: 1rem;
+      }
+    }
+    .about-slides {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .about-slides .slide-text {
+      max-width: 900px;
+      margin: 0 auto;
+      opacity: 0;
+      transition: all 1.2s cubic-bezier(0.4,0.2,0.2,1.0);
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 40px);
+      top: 32%;
+      width: 100%;
+      pointer-events: none;
+      visibility: hidden;
+    }
+    .about-slides .slide-text.active {
+      opacity: 1;
+      transform: translate(-50%, 0);
+      visibility: visible;
+      pointer-events: auto;
+      position: relative;
+    }
+    .slide-text h2 {
+      font-size: 2.6rem;
+      font-family: 'Playfair Display', serif;
+      color: #ffe082;
+      margin-bottom: 0.7rem;
+      font-weight: 700;
+      text-shadow: 0 2px 18px #ff9800cc;
+    }
+    .slide-text p {
+      font-size: 1.12rem;
+      color: #ffecc5;
+      max-width: 700px;
+      margin: 1rem auto 0;
+    }
+    .author-section {
+      background: #fffde7;
+      padding: 3.3rem 1.2rem 2.7rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      max-width: 950px;
+      margin: -2.2rem auto 2.2rem auto;
+      border-radius: 30px;
+      box-shadow: 0 6px 36px #ffe0b2aa;
+      position: relative;
+      z-index: 2;
+    }
+    .author-img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 3px 22px #ffecb3bb;
+      border: 4px solid #ffe0b2;
+      background: #fff;
+      margin-right: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .author-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+    .author-bio {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.7rem;
+    }
+    .author-bio .name {
+      font-size: 1.5rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: bold;
+      color: #b26a00;
+      margin-bottom: 0.2rem;
+    }
+    .author-bio .quote {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.17rem;
+      color: #6d4c41;
+      opacity: 0.92;
+      padding-left: 0.7rem;
+      border-left: 4px solid #ffe082be;
+      line-height: 1.6;
+    }
+    .author-bio .author-links a {
+      display: inline-block;
+      color: #ffb300;
+      margin-right: 0.7em;
+      font-size: 1.5em;
+      transition: color 0.3s;
+      text-decoration: none;
+    }
+    .author-bio .author-links a:hover { color: #3e2723; }
+    @media (max-width: 700px) {
+      .author-section {
+        flex-direction: column; gap: 1.3rem;
+        padding: 2rem 0.7rem 1.5rem 0.7rem;
+      }
+      .author-img { margin: 0; }
+      .author-bio { align-items: center; text-align: center;}
+    }
+    .book-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 2.2rem;
+      padding: 3.7rem 2rem 2.7rem 2rem;
+      position: relative;
+      z-index: 2;
+    }
+    .book-card {
+      background: rgba(255,255,255,0.64);
+      border-radius: 20px;
+      padding: 2.2rem 1.5rem 1.5rem 1.5rem;
+      position: relative;
+      box-shadow: 0 5px 30px 5px rgba(255, 193, 7,0.10);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      min-height: 480px;
+      overflow: visible;
+      backdrop-filter: blur(8px);
+      border: 1.5px solid #ffecb3aa;
+      transition: box-shadow 0.3s, transform 0.3s, background 0.3s;
+      z-index: 2;
+    }
+    .book-card:hover {
+      box-shadow: 0 16px 42px rgba(255, 193, 7, 0.22), 0 3px 16px #ffecb344;
+      transform: translateY(-10px) scale(1.03);
+      background: rgba(255,255,255,0.97);
+    }
+    .book-card img {
+      width: 100%;
+      border-radius: 14px;
+      background: #f0e2ca;
+      object-fit: contain;
+      max-height: 250px;
+      transition: transform 0.4s;
+      box-shadow: 0 3px 14px #ffe0b277;
+      margin-bottom: 0.6rem;
+    }
+    .book-card:hover img {
+      transform: scale(1.045);
+    }
+    .book-info h3 {
+      margin: 0;
+      font-size: 1.38rem;
+      font-family: 'Playfair Display', serif;
+    }
+    .book-info .stars {
+      color: #ff6f00;
+      font-size: 1.13rem;
+      margin: 0.3rem 0 0.7rem;
+      letter-spacing: 0.13em;
+      filter: drop-shadow(0 1.5px 2px #fffde7cc);
+    }
+    .book-info p {
+      font-size: 0.96rem;
+      line-height: 1.5;
+      margin-bottom: 0.6rem;
+    }
+    .ribbon {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      padding: 0.45rem 0;
+      color: #fff;
+      font-size: 1.03rem;
+      font-weight: bold;
+      letter-spacing: 0.09em;
+      background: #43a047;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      z-index: 10;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.11);
+      border-bottom: 2px solid rgba(255,255,255,0.19);
+      text-shadow: 1px 2px 6px rgba(0,0,0,0.13);
+      opacity: 0.99;
+      pointer-events: none;
+      user-select: none;
+    }
+    .top-rated {
+      background: linear-gradient(90deg, #43a047 60%, #388e3c 100%);
+    }
+    .coming-soon {
+      background: linear-gradient(90deg, #d84315 60%, #ff7043 100%);
+    }
+    @media (max-width: 600px) {
+      .ribbon {
+        font-size: 0.87rem;
+        padding: 0.32rem 0;
+      }
+      .book-card {
+        padding-top: 1.8rem;
+      }
+    }
+    .book-actions {
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .book-actions button {
+      flex: 1;
+      background: #fff3e0;
+      border: 1px solid #ffcc80;
+      color: #5d4037;
+      font-size: 0.94rem;
+      padding: 0.48rem 0.6rem;
+      border-radius: 9px;
+      cursor: pointer;
+      min-width: 90px;
+      transition: box-shadow 0.3s, transform 0.3s, background 0.3s, color 0.3s;
+      box-shadow: 0 2px 8px rgba(255, 167, 38, 0.08);
+      font-family: inherit;
+    }
+    .book-actions button:hover:not(:disabled) {
+      background: linear-gradient(90deg, #ffcc80, #ffe0b2);
+      color: #3e2723;
+      box-shadow: 0 4px 16px rgba(255, 167, 38, 0.15);
+      transform: scale(1.06);
+      font-weight: 600;
+    }
+    .book-actions button:disabled {
+      cursor: not-allowed;
+      opacity: 0.47;
+      background: #f0e2ca;
+      color: #bdbdbd;
+    }
+    .testimonial-section {
+      background: #fff7ec;
+      padding: 2.7rem 1.2rem 2.9rem 1.2rem;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    .testimonial-section h2 {
+      font-family: 'Playfair Display', serif;
+      color: #3e2723;
+      margin-bottom: 1.8rem;
+      font-size: 2.2rem;
+      font-weight: 700;
+    }
+    .testimonial-carousel {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .testimonial-card {
+      background: #fff8e1;
+      border-radius: 20px;
+      padding: 2.2rem 1.2rem 1.4rem 1.2rem;
+      box-shadow: 0 4px 18px #ffe08233;
+      min-height: 130px;
+      font-size: 1.08rem;
+      color: #5d4037;
+      font-family: 'Playfair Display', serif;
+      transition: opacity 0.5s;
+      opacity: 0;
+      position: absolute;
+      left: 0; right: 0;
+      margin: auto;
+      width: 98%;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .testimonial-card.active {
+      opacity: 1;
+      position: relative;
+      pointer-events: auto;
+    }
+    .testimonial-author {
+      margin-top: 0.7rem;
+      color: #b26a00;
+      font-weight: bold;
+      font-size: 1.04rem;
+      letter-spacing: 0.01em;
+    }
+    .testimonial-nav {
+      margin-top: 1.2rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+    .testimonial-dot {
+      display: inline-block;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: #ffe082;
+      border: 2px solid #ffb300;
+      cursor: pointer;
+      transition: background 0.3s, border 0.3s;
+    }
+    .testimonial-dot.active {
+      background: #ffb300;
+      border-color: #ffb300;
+    }
+    .newsletter-section {
+      background: linear-gradient(95deg, #fffde7 70%, #ffe082 100%);
+      text-align: center;
+      padding: 2.5rem 0.7rem 2.4rem 0.7rem;
+      position: relative;
+      z-index: 2;
+      margin-top: -0.7rem;
+    }
+    .newsletter-section h2 {
+      font-family: 'Playfair Display', serif;
+      color: #3e2723;
+      font-size: 1.5rem;
+      margin-bottom: 0.7rem;
+      font-weight: 700;
+    }
+    .newsletter-form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      max-width: 410px;
+      margin: 0.8rem auto 0 auto;
+      flex-wrap: wrap;
+    }
+    .newsletter-form input[type="email"] {
+      padding: 0.7rem 1.1rem;
+      border: 1.5px solid #ffe082;
+      border-radius: 8px;
+      font-size: 1.02rem;
+      outline: none;
+      min-width: 170px;
+      font-family: inherit;
+      background: #fff;
+      transition: border 0.2s;
+    }
+    .newsletter-form input[type="email"]:focus {
+      border: 1.5px solid #ffb300;
+    }
+    .newsletter-form button {
+      background: linear-gradient(90deg, #ffb300, #ffe082 70%);
+      color: #3e2723;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: 0.7rem 1.3rem;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s;
+      font-family: inherit;
+      margin-top: 0;
+    }
+    .newsletter-form button:hover {
+      background: linear-gradient(90deg, #ffe082, #ffb300);
+      color: #d84315;
+    }
+    .install-banner {
+      text-align: center;
+      padding: 1.5rem;
+      background: #ffe0b2;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: none;
+      box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
+    .install-banner button {
+      background: #6d4c41;
+      color: #fff;
+      padding: 0.6rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.3s;
+    }
+    .install-banner button:hover {
+      background: #a1887f;
+    }
+    footer {
+      text-align: center;
+      padding: 1.2rem 0 0.8rem 0;
+      color: #5d4037;
+      background: #fffde7;
+      font-size: 1.04rem;
+      position: relative;
+      z-index: 3;
+      border-top: 1px solid #ffe08233;
+      box-shadow: 0 -6px 36px #ffe0b2cc;
+    }
+    .footer-social {
+      margin: 0.5rem 0 0.3rem 0;
+    }
+    .footer-social a {
+      color: #b26a00;
+      margin: 0 0.38em;
+      font-size: 1.33em;
+      transition: color 0.27s;
+      text-decoration: none;
+      display: inline-block;
+      opacity: 0.88;
+    }
+    .footer-social a:hover {
+      color: #ff6f00;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <svg class="bg-shape bg-shape1" viewBox="0 0 400 300"><ellipse cx="200" cy="150" rx="170" ry="90" fill="#ffe082" /></svg>
+  <svg class="bg-shape bg-shape2" viewBox="0 0 400 300"><ellipse cx="200" cy="150" rx="180" ry="80" fill="#ffb300" /></svg>
+  <header>
+    <span class="logo-orange-3d">The Golden Scrolls of Barnabas</span>
+  </header>
+  <div class="download-app-container" id="pwa-download-bar" style="display:none;">
+    <button class="download-app-btn" id="pwa-download-btn">
+      <i class="fas fa-download"></i> Download App
+    </button>
+  </div>
+  <section class="about-section" id="about">
+    <div class="about-slides">
+      <div class="slide-text active">
+        <h2>Welcome to the Heart of Inspiration</h2>
+        <p>Where words meet spirit and stories shape souls. Discover the literary works of Mfuneni Barnabas Mabunda.</p>
+      </div>
+      <div class="slide-text">
+        <h2>Ordinary Pen, Extraordinary Voice</h2>
+        <p>Not a scholar. Not a celebrity. Just a soul with a message that needs to be heard. This is writing without filters.</p>
+      </div>
+      <div class="slide-text">
+        <h2>Books That Carry You Deeper</h2>
+        <p>Each book is crafted to guide, empower and stir something within. Let the pages speak to your journey.</p>
+      </div>
+    </div>
+  </section>
+  <section class="author-section" id="author" data-aos="fade-up">
+    <div class="author-img">
+      <img src="https://pub-954ee37e70244de5bb62c446533dbea3.r2.dev/file_000000006cb462468d922fde071e3fe9%20(1).png" alt="Mfuneni Barnabas Mabunda Portrait">
+    </div>
+    <div class="author-bio">
+      <span class="name">Mfuneni Barnabas Mabunda</span>
+      <span class="quote">
+        “I write not for fame, but to reach hearts that need hope, and souls searching for light.”
+      </span>
+      <div class="author-links">
+        <a href="https://facebook.com/" target="_blank" rel="noopener" title="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://twitter.com/" target="_blank" rel="noopener" title="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="https://instagram.com/" target="_blank" rel="noopener" title="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </section>
+  <section class="book-section" id="books">
+    <div class="book-card" data-aos="fade-up" data-aos-delay="100">
+      <span class="ribbon top-rated">TOP RATED</span>
+      <img src="https://pub-954ee37e70244de5bb62c446533dbea3.r2.dev/book_mockup_download.png" alt="The Power of the Lord's Prayer"/>
+      <div class="book-info">
+        <h3>The Power of the Lord's Prayer</h3>
+        <div class="stars">★★★★★</div>
+        <p>Although the Lord’s Prayer is often recited without deep reflection, this book reveals its transformative power when understood and prayed with intention.</p>
+        <div class="book-actions">
+          <button>📖 Read Sample</button>
+          <button>🛒 Buy Now</button>
+          <button>📚 Borrow</button>
+        </div>
+      </div>
+    </div>
+    <div class="book-card" data-aos="fade-up" data-aos-delay="200">
+      <span class="ribbon top-rated">TOP RATED</span>
+      <img src="https://pub-954ee37e70244de5bb62c446533dbea3.r2.dev/file_00000000d41c6230b1e3ff5aacfbe6a3.png" alt="The Power of Enthusiasm"/>
+      <div class="book-info">
+        <h3>The Power of Enthusiasm</h3>
+        <div class="stars">★★★★★</div>
+        <p>Discover how enthusiasm can spark a powerful spiritual energy within you — one that uplifts, motivates, and attracts purpose to your daily life.</p>
+        <div class="book-actions">
+          <button>📖 Read Sample</button>
+          <button>🛒 Buy Now</button>
+          <button>📚 Borrow</button>
+        </div>
+      </div>
+    </div>
+    <div class="book-card" data-aos="fade-up" data-aos-delay="300">
+      <span class="ribbon coming-soon">COMING SOON</span>
+      <img src="https://pub-954ee37e70244de5bb62c446533dbea3.r2.dev/file_00000000ba8c61f7809d635d1eb6904d%20(2).png" alt="The Fountain of Life"/>
+      <div class="book-info">
+        <h3>The Fountain of Life</h3>
+        <div class="stars">☆☆☆☆☆</div>
+        <p>This book is coming soon. A fresh wellspring of insight is on the way. Stay tuned for its official release!</p>
+        <div class="book-actions">
+          <button disabled>📖 Read Sample</button>
+          <button disabled>🛒 Buy Now</button>
+          <button disabled>📚 Borrow</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="testimonial-section" id="testimonials">
+    <h2>What Readers Say</h2>
+    <div class="testimonial-carousel">
+      <div class="testimonial-card active">
+        “Barnabas’s words are like a gentle sunrise—full of hope, warmth, and a quiet power that grows with every page.”
+        <div class="testimonial-author">– Lerato M.</div>
+      </div>
+      <div class="testimonial-card">
+        “I found myself reflecting on life, faith, and my everyday choices. His books don’t preach; they invite.”
+        <div class="testimonial-author">– Sipho D.</div>
+      </div>
+      <div class="testimonial-card">
+        “It’s rare to read something that feels both ancient and brand-new. Highly recommended for every soul seeker.”
+        <div class="testimonial-author">– Nomvula Z.</div>
+      </div>
+    </div>
+    <div class="testimonial-nav">
+      <span class="testimonial-dot active"></span>
+      <span class="testimonial-dot"></span>
+      <span class="testimonial-dot"></span>
+    </div>
+  </section>
+  <section class="newsletter-section" id="newsletter" data-aos="fade-up">
+    <h2>Stay Inspired</h2>
+    <p>Subscribe for updates, free chapters, and exclusive insights from Barnabas.</p>
+    <form class="newsletter-form" onsubmit="event.preventDefault();alert('Thank you for subscribing!');this.reset();">
+      <input type="email" placeholder="Your email address" required />
+      <button type="submit"><i class="fas fa-envelope"></i> Subscribe</button>
+    </form>
+  </section>
+  <div class="install-banner" id="installBanner">
+    <p>Add this library to your home screen for quick access.</p>
+    <button id="installBtn">Install</button>
+  </div>
+  <footer id="contact">
+    <div class="footer-social">
+      <a href="https://facebook.com/" target="_blank" rel="noopener" title="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="https://twitter.com/" target="_blank" rel="noopener" title="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="https://instagram.com/" target="_blank" rel="noopener" title="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+    &copy; 2025 Barnabas Book Library | Made with <span style="color:#ff6f00;">&#10084;</span> by Mfuneni Barnabas Mabunda
+  </footer>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    // About slides logic
+    const slides = document.querySelectorAll('.slide-text');
+    let current = 0;
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        if (i === index) slide.classList.add('active');
+      });
+    }
+    setInterval(() => {
+      current = (current + 1) % slides.length;
+      showSlide(current);
+    }, 5000);
+
+    // Testimonial carousel
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    const testimonialDots = document.querySelectorAll('.testimonial-dot');
+    let tIndex = 0;
+    function showTestimonial(i) {
+      testimonialCards.forEach((card, idx) => {
+        card.classList.toggle('active', idx === i);
+        testimonialDots[idx].classList.toggle('active', idx === i);
+      });
+    }
+    testimonialDots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => {
+        tIndex = idx;
+        showTestimonial(tIndex);
+      });
+    });
+    setInterval(() => {
+      tIndex = (tIndex + 1) % testimonialCards.length;
+      showTestimonial(tIndex);
+    }, 7000);
+
+    // AOS animation on scroll
+    AOS.init({ once: true, offset: 80, duration: 700 });
+
+    // PWA Install Button Logic
+    let deferredPrompt = null;
+    const pwaBar = document.getElementById('pwa-download-bar');
+    const pwaBtn = document.getElementById('pwa-download-btn');
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      pwaBar.style.display = 'block';
+    });
+    window.addEventListener('appinstalled', () => {
+      pwaBar.style.display = 'none';
+    });
+    function isInStandaloneMode() {
+      return (window.matchMedia('(display-mode: standalone)').matches) || (window.navigator.standalone === true);
+    }
+    if (isInStandaloneMode()) {
+      pwaBar.style.display = 'none';
+    }
+    pwaBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          pwaBar.style.display = 'none';
+        }
+        deferredPrompt = null;
+      }
+    });
+  </script>
+</body>
+</html>
